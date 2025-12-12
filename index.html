@@ -9,37 +9,55 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+    <div class="app">
+        <!-- Snow overlay (shared across screens) -->
+        <div class="snow-container">
+            <div class="snow-layer"><div class="snow"></div></div>
+            <div class="snow-layer"><div class="snow"></div></div>
+            <div class="snow-layer"><div class="snow"></div></div>
+        </div>
 
-    <!-- Snow overlay -->
-    <div class="snow-container">
-        <div class="snow-layer">
-            <div class="snow"></div>
+        <!-- HOME SCREEN -->
+        <div class="screen home active" id="homeScreen">
+            <div class="title">
+                <div>Scotchy's</div>
+                <div>2026 Christmas</div>
+                <div>Treasure Hunt</div>
+            </div>
+
+            <div class="controls">
+                <button id="startBtn">Start</button>
+            </div>
         </div>
-        <div class="snow-layer">
-            <div class="snow"></div>
+
+        <!-- CLUE SCREEN -->
+        <div class="screen clue" id="clueScreen">
+            <div class="clue-content">
+                <h1 id="clueTitle"></h1>
+
+                <p id="clueText"></p>
+
+                <input
+                    type="text"
+                    id="clueInput"
+                    placeholder="Type your answer here"
+                    autocomplete="off"
+                >
+
+                <button id="submitClue">Submit</button>
+
+                <p id="clueFeedback"></p>
+            </div>
         </div>
-        <div class="snow-layer">
-            <div class="snow"></div>
-        </div>
+
+
+        <!-- GLOBAL MUSIC BUTTON -->
+        <button id="musicBtn" class="music-global">Play music</button>
+
+        <audio id="music" src="assets/xmas.mp3"></audio>
+
+        <script src="js/app.js"></script>
     </div>
-
-    <!-- Home screen -->
-    <div class="home">
-        <div class="title">
-            <div>Scotchy's</div>
-            <div>2026 Christmas</div>
-            <div>Treasure Hunt</div>
-        </div>
-
-        <div class="controls">
-            <button id="startBtn">Start</button>
-            <button id="musicBtn">Play music</button>
-        </div>
-
-        <audio id="music" src="assets/xmas.mp3" loop></audio>
-    </div>
-
-
-    <script src="js/app.js"></script>
 </body>
+
 </html>

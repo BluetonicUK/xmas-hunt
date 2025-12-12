@@ -12,8 +12,31 @@ html, body {
     overflow: hidden;
 }
 
-/* Full screen home with Santa background */
+.app {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    background-image: url("../assets/santa.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+
+/* Home screen layout only (background handled by .app) */
 .home {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+/* .home {
     position: relative;
     width: 100vw;
     height: 100vh;
@@ -26,7 +49,22 @@ html, body {
     display: flex;
     justify-content: flex-end;
     align-items: center;
+} */
+
+.screen {
+    position: absolute;
+    inset: 0;
+    display: none;
 }
+
+.screen.active {
+    display: block;
+}
+
+    .screen.active.clue {
+        display: flex;
+    }
+
 
 /* Button container */
 .controls {
@@ -70,6 +108,24 @@ html, body {
     border-radius: 22px;
 
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+
+.music-global {
+    position: fixed;
+    top: calc(env(safe-area-inset-top, 0px) + 12px);
+    right: 12px;
+
+    padding: 8px 14px;
+    font-size: 0.9rem;
+
+    background: rgba(15, 138, 61, 0.7);
+    color: white;
+    border: 2px solid white;
+    border-radius: 14px;
+
+    z-index: 30;
 }
 
 
@@ -131,6 +187,78 @@ html, body {
     margin-top: 6px;
 }
 
+
+/* .clue {
+    background: linear-gradient(
+        rgba(11, 61, 46, 0.85),
+        rgba(11, 61, 46, 0.95)
+    );
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 24px;
+    z-index: 5;
+} */
+.clue {
+    background: linear-gradient(
+        rgba(11, 61, 46, 0.85),
+        rgba(11, 61, 46, 0.95)
+    );
+
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    padding: 24px;
+    z-index: 5;
+}
+
+.clue-content {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 24px;
+    padding: 30px 24px;
+    max-width: 420px;
+
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.clue-content h1 {
+    margin-top: 0;
+    color: #c62828;
+}
+
+.clue-content p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #0b3d2e;
+}
+
+#clueInput {
+    width: 100%;
+    padding: 14px;
+    margin-top: 16px;
+    font-size: 1rem;
+    border-radius: 12px;
+    border: 2px solid #0f8a3d;
+}
+
+#submitClue {
+    margin-top: 16px;
+    width: 100%;
+    padding: 14px;
+    font-size: 1.1rem;
+    border-radius: 14px;
+    border: none;
+    background: #c62828;
+    color: white;
+}
+
+#clueFeedback {
+    margin-top: 12px;
+    color: #c62828;
+}
 
 
 
