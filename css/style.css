@@ -235,6 +235,31 @@ html, body {
     color: #0b3d2e;
 }
 
+.clue-content.success {
+    animation: success-pop 0.6s ease;
+    box-shadow: 0 0 30px rgba(15, 138, 61, 0.8);
+}
+
+@keyframes success-pop {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.04);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+#clueSuccess {
+    margin-top: 12px;
+    color: #0f8a3d;
+    font-weight: 600;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
 #clueInput {
     width: 100%;
     padding: 14px;

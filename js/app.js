@@ -3,6 +3,8 @@ const musicBtn = document.getElementById("musicBtn");
 const startBtn = document.getElementById("startBtn");
 const homeScreen = document.getElementById("homeScreen");
 const clue1Screen = document.getElementById("clue1Screen");
+const clueContent = document.querySelector(".clue-content");
+const clueSuccess = document.getElementById("clueSuccess");
 
 const clues = [
     {
@@ -64,19 +66,32 @@ submitClue.addEventListener("click", () => {
     const correctAnswer = clues[currentClue].answer;
 
     if (userAnswer === correctAnswer) {
-        currentClue++;
+        clueFeedback.textContent = "";
+        clueSuccess.textContent = "Correct! 🎄";
+        clueSuccess.style.opacity = "1";
 
-        if (currentClue < clues.length) {
-            loadClue(currentClue);
-        } else {
-            clueTitle.textContent = "🎄 Well done!";
-            clueText.textContent = "You’ve completed the Christmas treasure hunt.";
-            clueInput.style.display = "none";
-            submitClue.style.display = "none";
-            clueFeedback.textContent = "";
-        }
+        clueContent.classList.add("success");
+
+        setTimeout(() => {
+            clueContent.classList.remove("success");
+            clueSuccess.style.opacity = "0";
+
+            currentClue++;
+
+            if (currentClue < clues.length) {
+                loadClue(currentClue);
+            } else {
+                clueTitle.textContent = "🎄 Well done!";
+                clueText.textContent = "You’ve completed the Christmas treasure hunt.";
+                clueInput.style.display = "none";
+                submitClue.style.display = "none";
+                clueFeedback.textContent = "";
+            }
+        }, 900);
+
     } else {
         clueFeedback.textContent = "Not quite, try again 🎅";
+        clueSuccess.style.opacity = "0";
     }
 });
 
