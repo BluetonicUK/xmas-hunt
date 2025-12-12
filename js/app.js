@@ -5,6 +5,7 @@ const homeScreen = document.getElementById("homeScreen");
 const clue1Screen = document.getElementById("clue1Screen");
 const clueContent = document.querySelector(".clue-content");
 const clueSuccess = document.getElementById("clueSuccess");
+const candyContainer = document.getElementById("candyContainer");
 
 const clues = [
     {
@@ -66,6 +67,7 @@ submitClue.addEventListener("click", () => {
     const correctAnswer = clues[currentClue].answer;
 
     if (userAnswer === correctAnswer) {
+        triggerCandyShower();
         clueFeedback.textContent = "";
         clueSuccess.textContent = "Correct! 🎄";
         clueSuccess.style.opacity = "1";
@@ -95,6 +97,25 @@ submitClue.addEventListener("click", () => {
     }
 });
 
+
+function triggerCandyShower() {
+    const candyCount = 100;
+
+    for (let i = 0; i < candyCount; i++) {
+        const candy = document.createElement("div");
+        candy.classList.add("candy");
+
+        candy.style.left = Math.random() * 100 + "vw";
+        candy.style.animationDuration = (1.2 + Math.random()).toFixed(2) + "s";
+        candy.style.animationDelay = (Math.random() * 0.3).toFixed(2) + "s";
+
+        candyContainer.appendChild(candy);
+
+        candy.addEventListener("animationend", () => {
+            candy.remove();
+        });
+    }
+}
 
 /* Play / Stop button */
 musicBtn.addEventListener("click", () => {

@@ -358,3 +358,40 @@ html, body {
     75% { transform: translateX(-15px); }
     100% { transform: translateX(0); }
 }
+
+
+/* ---------------- Candy Cane Shower ---------------- */
+
+.candy-container {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 25;
+}
+
+.candy {
+    position: absolute;
+    top: -80px;
+    width: 36px;
+    height: 72px;
+
+    background-image: url("../assets/candy.png");
+    background-size: contain;
+    background-repeat: no-repeat;
+
+    animation-name: candy-fall;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+
+@keyframes candy-fall {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.9;
+    }
+}
