@@ -1,0 +1,9 @@
+{
+  "name": "Christmas Treasure Hunt",
+  "short_name": "Xmas Hunt",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b3d2e",
+  "theme_color": "#0f8a3d",
+  "icons": []
+}
