@@ -10,6 +10,15 @@ const candyContainer = document.getElementById("candyContainer");
 const audios = document.querySelectorAll("audio");
 const loader = document.getElementById("loader");
 
+const playlist = [
+    "assets/xmas.mp3",
+    "assets/jbells.mp3"
+];
+
+let currentTrack = 0;
+music.src = playlist[currentTrack];
+
+
 const clues = [
     {
         title: "Clue One",
@@ -44,7 +53,6 @@ const clues = [
 ];
 
 //LOADER & AUDIO PRELOAD
-// LOADER & AUDIO PRELOAD
 
 let loadedCount = 0;
 const totalAudios = audios.length;
@@ -167,6 +175,19 @@ function triggerCandyShower() {
         });
     }
 }
+
+music.addEventListener("ended", () => {
+    currentTrack++;
+
+    if (currentTrack < playlist.length) {
+        music.src = playlist[currentTrack];
+        music.play();
+    } else {
+        // Optional: reset to start
+        currentTrack = 0;
+        musicBtn.textContent = "Play music";
+    }
+});
 
 /* Play / Stop button */
 musicBtn.addEventListener("click", () => {
