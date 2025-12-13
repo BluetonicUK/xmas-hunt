@@ -44,25 +44,42 @@ const clues = [
 ];
 
 //LOADER & AUDIO PRELOAD
+// LOADER & AUDIO PRELOAD
+
 let loadedCount = 0;
+const totalAudios = audios.length;
+
+// Show loader only if loading takes noticeable time
 let loaderTimeout = setTimeout(() => {
     loader.classList.remove("hidden");
-}, 400); // only show if loading is slow
+}, 400);
+
+function audioReady() {
+    loadedCount++;
+
+    if (loadedCount >= totalAudios) {
+        clearTimeout(loaderTimeout);
+        loader.classList.add("hidden");
+    }
+}
 
 audios.forEach(audio => {
-    audio.addEventListener("canplaythrough", () => {
-        loadedCount++;
-        if (loadedCount === audios.length) {
-            clearTimeout(loaderTimeout);
-            loader.classList.add("hidden");
-            
-                // // TEMP: force loader to stay visible for testing
-                // setTimeout(() => {
-                //     loader.classList.add("hidden");
-                // }, 2000);
-        }
-    });
+
+    // Already usable (very common on iOS PWA)
+    if (audio.readyState >= 2) {
+        audioReady();
+    } else {
+        audio.addEventListener("canplay", audioReady, { once: true });
+        audio.addEventListener("error", audioReady, { once: true });
+    }
 });
+
+// Absolute failsafe: never block longer than 3 seconds
+setTimeout(() => {
+    clearTimeout(loaderTimeout);
+    loader.classList.add("hidden");
+}, 3000);
+
 
 
 /* Start button only handles navigation now */
