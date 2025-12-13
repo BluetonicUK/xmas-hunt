@@ -11,11 +11,16 @@ const audios = document.querySelectorAll("audio");
 const loader = document.getElementById("loader");
 
 const playlist = [
-    "assets/xmas.mp3",
-    "assets/jbells.mp3"
+    "assets/music/xmas.mp3",
+    "assets/music/jbells2.mp3",
+    "assets/music/deck.mp3",
+    "assets/music/letitsnow.mp3",
+    "assets/music/wishumerryxmas.mp3",
 ];
 
 let currentTrack = 0;
+
+shuffleArray(playlist);
 music.src = playlist[currentTrack];
 
 
@@ -169,10 +174,24 @@ function triggerCandyShower() {
         item.style.transform = `rotate(${Math.random() * 360}deg)`;
 
         candyContainer.appendChild(item);
+        item.offsetHeight; //force animations
+
 
         item.addEventListener("animationend", () => {
             item.remove();
         });
+
+        // Failsafe cleanup for iOS
+        setTimeout(() => {
+            item.remove();
+        }, 5000);
+    }
+}
+
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
     }
 }
 
