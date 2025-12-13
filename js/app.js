@@ -89,7 +89,7 @@ submitClue.addEventListener("click", () => {
                 submitClue.style.display = "none";
                 clueFeedback.textContent = "";
             }
-        }, 900);
+        }, 3000);
 
     } else {
         clueFeedback.textContent = "Not quite, try again 🎅";
@@ -99,20 +99,31 @@ submitClue.addEventListener("click", () => {
 
 
 function triggerCandyShower() {
-    const candyCount = 100;
+    const itemCount = 100;
+    const types = ["cane", "present"];
 
-    for (let i = 0; i < candyCount; i++) {
-        const candy = document.createElement("div");
-        candy.classList.add("candy");
+    for (let i = 0; i < itemCount; i++) {
+        const item = document.createElement("div");
+        item.classList.add("candy");
 
-        candy.style.left = Math.random() * 100 + "vw";
-        candy.style.animationDuration = (1.2 + Math.random()).toFixed(2) + "s";
-        candy.style.animationDelay = (Math.random() * 0.3).toFixed(2) + "s";
+        // Randomly choose candy cane or present
+        const type = types[Math.floor(Math.random() * types.length)];
+        item.classList.add(type);
 
-        candyContainer.appendChild(candy);
+        item.style.left = Math.random() * 100 + "vw";
+        item.style.animationDuration = (2.2 + Math.random() * 1.2) + "s";
+        item.style.animationDelay = (Math.random() * 0.3) + "s";
 
-        candy.addEventListener("animationend", () => {
-            candy.remove();
+        const spinDirection = Math.random() < 0.5 ? -1 : 1;
+        const spinAmount = 180 + Math.random() * 540; // 180° to 720°
+        item.style.setProperty("--spin", spinDirection * spinAmount + "deg");
+
+        item.style.transform = `rotate(${Math.random() * 360}deg)`;
+
+        candyContainer.appendChild(item);
+
+        item.addEventListener("animationend", () => {
+            item.remove();
         });
     }
 }

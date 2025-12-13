@@ -1,9 +1,20 @@
 {
-  "name": "Christmas Treasure Hunt",
-  "short_name": "Xmas Hunt",
-  "start_url": "./index.html",
+  "name": "Scotchy’s Christmas Treasure Hunt",
+  "short_name": "Scotchy Egg",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#0b3d2e",
   "theme_color": "#0f8a3d",
-  "icons": []
+  "icons": [
+    {
+      "src": "assets/icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
 }

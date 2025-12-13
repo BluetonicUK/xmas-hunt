@@ -374,9 +374,8 @@ html, body {
     position: absolute;
     top: -80px;
     width: 36px;
-    height: 72px;
+    height: 36px;
 
-    background-image: url("../assets/candy.png");
     background-size: contain;
     background-repeat: no-repeat;
 
@@ -384,6 +383,17 @@ html, body {
     animation-timing-function: linear;
     animation-fill-mode: forwards;
 }
+    .candy.cane {
+        width: 52px;
+        height: 104px;
+        background-image: url("../assets/candy.png");
+    }
+
+    .candy.present {
+        width: 72px;
+        height: 72px;
+        background-image: url("../assets/present2.png");
+    }
 
 @keyframes candy-fall {
     from {
@@ -391,7 +401,7 @@ html, body {
         opacity: 1;
     }
     to {
-        transform: translateY(110vh) rotate(360deg);
+        transform: translateY(110vh) rotate(var(--spin));
         opacity: 0.9;
     }
 }
