@@ -36,20 +36,27 @@ html, body {
     align-items: center;
 }
 
-/* .home {
-    position: relative;
-    width: 100vw;
-    height: 100vh;
-
-    background-image: url("../assets/santa.png");
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-
+/* LOADER */
+.loader {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 61, 46, 0.85);
     display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-} */
+    z-index: 50;
+}
+
+.loader-text {
+    color: white;
+    font-size: 1.2rem;
+    animation: pulse 1.6s ease-in-out infinite;
+}
+
+/* SCREEN HANDLING */
+.hidden {
+    display: none;
+}
 
 .screen {
     position: absolute;
@@ -111,7 +118,7 @@ html, body {
 }
 
 
-
+/* Music  */
 .music-global {
     position: fixed;
     top: calc(env(safe-area-inset-top, 0px) + 12px);
@@ -128,8 +135,6 @@ html, body {
     z-index: 30;
 }
 
-
-
 /* Music button */
 #musicBtn {
     background: rgba(15, 138, 61, 0.6);
@@ -140,6 +145,7 @@ html, body {
     backdrop-filter: blur(6px);
 }
 
+/* Start button animations */
 #startBtn {
     animation: glow 2.2s ease-in-out infinite,
                pulse 2.2s ease-in-out infinite;
@@ -218,19 +224,7 @@ html, body {
 }
 
 
-/* .clue {
-    background: linear-gradient(
-        rgba(11, 61, 46, 0.85),
-        rgba(11, 61, 46, 0.95)
-    );
-
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    padding: 24px;
-    z-index: 5;
-} */
+/* ---------------- Clue Screen ---------------- */
 .clue {
     background: linear-gradient(
         rgba(11, 61, 46, 0.85),

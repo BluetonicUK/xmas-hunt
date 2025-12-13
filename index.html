@@ -10,6 +10,13 @@
 </head>
 <body>
     <div class="app">
+
+        <!-- Loader -->
+        <div id="loader" class="loader hidden">
+            <div class="loader-text">🎄 Getting things ready…</div>
+        </div>
+
+
         <!-- Snow overlay (shared across screens) -->
         <div class="snow-container">
             <div class="snow-layer"><div class="snow"></div></div>
@@ -57,7 +64,10 @@
         <!-- GLOBAL MUSIC BUTTON -->
         <button id="musicBtn" class="music-global">Play music</button>
 
-        <audio id="music" src="assets/xmas.mp3"></audio>
+        <audio id="music" src="assets/xmas.mp3" preload="auto"></audio>
+        <!-- <audio id="music1" src="assets/xmas1.mp3" preload="auto"></audio>
+        <audio id="music2" src="assets/xmas2.mp3" preload="auto"></audio>
+        <audio id="music3" src="assets/xmas3.mp3" preload="auto"></audio> -->
 
         <script src="js/app.js"></script>
     </div>

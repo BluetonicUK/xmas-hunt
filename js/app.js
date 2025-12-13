@@ -7,6 +7,9 @@ const clueContent = document.querySelector(".clue-content");
 const clueSuccess = document.getElementById("clueSuccess");
 const candyContainer = document.getElementById("candyContainer");
 
+const audios = document.querySelectorAll("audio");
+const loader = document.getElementById("loader");
+
 const clues = [
     {
         title: "Clue One",
@@ -40,6 +43,26 @@ const clues = [
     }
 ];
 
+//LOADER & AUDIO PRELOAD
+let loadedCount = 0;
+let loaderTimeout = setTimeout(() => {
+    loader.classList.remove("hidden");
+}, 400); // only show if loading is slow
+
+audios.forEach(audio => {
+    audio.addEventListener("canplaythrough", () => {
+        loadedCount++;
+        if (loadedCount === audios.length) {
+            clearTimeout(loaderTimeout);
+            loader.classList.add("hidden");
+            
+                // // TEMP: force loader to stay visible for testing
+                // setTimeout(() => {
+                //     loader.classList.add("hidden");
+                // }, 2000);
+        }
+    });
+});
 
 
 /* Start button only handles navigation now */
