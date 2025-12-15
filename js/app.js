@@ -1,3 +1,7 @@
+/* ============================================================
+   DOM REFERENCES
+   ============================================================ */
+
 const music = document.getElementById("music");
 const musicBtn = document.getElementById("musicBtn");
 const startBtn = document.getElementById("startBtn");
@@ -10,19 +14,11 @@ const candyContainer = document.getElementById("candyContainer");
 const audios = document.querySelectorAll("audio");
 const loader = document.getElementById("loader");
 
-const playlist = [
-    "assets/music/xmas.mp3",
-    "assets/music/jbells2.mp3",
-    "assets/music/deck.mp3",
-    "assets/music/letitsnow.mp3",
-    "assets/music/wishumerryxmas.mp3",
-];
 
-let currentTrack = 0;
 
-shuffleArray(playlist);
-music.src = playlist[currentTrack];
-
+/* ============================================================
+   CLUE DATA
+   ============================================================ */
 
 const clues = [
     {
@@ -57,19 +53,62 @@ const clues = [
     }
 ];
 
-//LOADER & AUDIO PRELOAD
+
+/* ============================================================
+   MUSIC PLAYLIST & AUDIO CONTROL
+   ============================================================ */
+
+const playlist = [
+    "assets/music/xmas.mp3",
+    "assets/music/jbells2.mp3",
+    "assets/music/deck.mp3",
+    "assets/music/letitsnow.mp3",
+    "assets/music/wishumerryxmas.mp3",
+];
+
+let currentTrack = 0;
+
+shuffleArray(playlist);
+music.src = playlist[currentTrack];
+
+music.addEventListener("ended", () => {
+    currentTrack++;
+
+    if (currentTrack < playlist.length) {
+        music.src = playlist[currentTrack];
+        music.play();
+    } else {
+        currentTrack = 0;
+        musicBtn.textContent = "Play music";
+    }
+});
+
+musicBtn.addEventListener("click", () => {
+    if (music.paused) {
+        music.currentTime = 0;
+        music.play();
+        musicBtn.textContent = "Stop music";
+    } else {
+        music.pause();
+        musicBtn.textContent = "Play music";
+    }
+});
+
+
+
+/* ============================================================
+   LOADER & AUDIO PRELOAD (iOS SAFE)
+   ============================================================ */
 
 let loadedCount = 0;
 const totalAudios = audios.length;
 
-// Show loader only if loading takes noticeable time
 let loaderTimeout = setTimeout(() => {
     loader.classList.remove("hidden");
 }, 400);
 
 function audioReady() {
     loadedCount++;
-
     if (loadedCount >= totalAudios) {
         clearTimeout(loaderTimeout);
         loader.classList.add("hidden");
@@ -77,8 +116,6 @@ function audioReady() {
 }
 
 audios.forEach(audio => {
-
-    // Already usable (very common on iOS PWA)
     if (audio.readyState >= 2) {
         audioReady();
     } else {
@@ -87,24 +124,27 @@ audios.forEach(audio => {
     }
 });
 
-// Absolute failsafe: never block longer than 3 seconds
 setTimeout(() => {
     clearTimeout(loaderTimeout);
     loader.classList.add("hidden");
 }, 3000);
 
 
+/* ============================================================
+   SCREEN NAVIGATION
+   ============================================================ */
 
-/* Start button only handles navigation now */
 startBtn.addEventListener("click", () => {
     homeScreen.classList.remove("active");
     clueScreen.classList.add("active");
-
     loadClue(0);
 });
 
 
-//CLUES
+/* ============================================================
+   CLUE LOGIC & PROGRESSION
+   ============================================================ */
+
 let currentClue = 0;
 
 function loadClue(index) {
@@ -121,10 +161,10 @@ submitClue.addEventListener("click", () => {
 
     if (userAnswer === correctAnswer) {
         triggerCandyShower();
+
         clueFeedback.textContent = "";
         clueSuccess.textContent = "Correct! 🎄";
         clueSuccess.style.opacity = "1";
-
         clueContent.classList.add("success");
 
         setTimeout(() => {
@@ -143,13 +183,16 @@ submitClue.addEventListener("click", () => {
                 clueFeedback.textContent = "";
             }
         }, 3000);
-
     } else {
         clueFeedback.textContent = "Not quite, try again 🎅";
         clueSuccess.style.opacity = "0";
     }
 });
 
+
+/* ============================================================
+   VISUAL EFFECTS – CANDY / PRESENT SHOWER
+   ============================================================ */
 
 function triggerCandyShower() {
     const itemCount = 100;
@@ -159,7 +202,6 @@ function triggerCandyShower() {
         const item = document.createElement("div");
         item.classList.add("candy");
 
-        // Randomly choose candy cane or present
         const type = types[Math.floor(Math.random() * types.length)];
         item.classList.add(type);
 
@@ -168,25 +210,23 @@ function triggerCandyShower() {
         item.style.animationDelay = (Math.random() * 0.3) + "s";
 
         const spinDirection = Math.random() < 0.5 ? -1 : 1;
-        const spinAmount = 180 + Math.random() * 540; // 180° to 720°
+        const spinAmount = 180 + Math.random() * 540;
         item.style.setProperty("--spin", spinDirection * spinAmount + "deg");
 
         item.style.transform = `rotate(${Math.random() * 360}deg)`;
 
         candyContainer.appendChild(item);
-        item.offsetHeight; //force animations
+        item.offsetHeight; // Force animation start on iOS
 
-
-        item.addEventListener("animationend", () => {
-            item.remove();
-        });
-
-        // Failsafe cleanup for iOS
-        setTimeout(() => {
-            item.remove();
-        }, 5000);
+        item.addEventListener("animationend", () => item.remove());
+        setTimeout(() => item.remove(), 5000); // iOS failsafe
     }
 }
+
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -194,28 +234,3 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
-
-music.addEventListener("ended", () => {
-    currentTrack++;
-
-    if (currentTrack < playlist.length) {
-        music.src = playlist[currentTrack];
-        music.play();
-    } else {
-        // Optional: reset to start
-        currentTrack = 0;
-        musicBtn.textContent = "Play music";
-    }
-});
-
-/* Play / Stop button */
-musicBtn.addEventListener("click", () => {
-    if (music.paused) {
-        music.currentTime = 0;
-        music.play();
-        musicBtn.textContent = "Stop music";
-    } else {
-        music.pause();
-        musicBtn.textContent = "Play music";
-    }
-});
