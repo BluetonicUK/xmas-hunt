@@ -407,6 +407,8 @@ html, body {
     animation-timing-function: linear;
     animation-fill-mode: forwards;
 }
+
+
     .candy.cane {
         width: 52px;
         height: 104px;
@@ -427,5 +429,84 @@ html, body {
     to {
         transform: translateY(110vh) rotate(var(--spin));
         opacity: 0.9;
+    }
+}
+
+
+
+
+/* ---------------- Completion Overlay ---------------- */
+.completion-overlay.hidden {
+    display: none;
+}
+
+.completion-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(11, 61, 46, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 60;
+}
+
+.completion-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 26px;
+    padding: 36px 28px;
+    max-width: 440px;
+    text-align: center;
+
+    box-shadow:
+        0 0 40px rgba(255, 255, 255, 0.8),
+        0 0 80px rgba(15, 138, 61, 0.9);
+
+    animation: completion-pop 0.8s ease forwards;
+}
+
+.completion-card h1 {
+    margin-top: 0;
+    color: #c62828;
+}
+
+.completion-message {
+    font-size: 1.15rem;
+    line-height: 1.7;
+    color: #0b3d2e;
+}
+
+/* Pop animation */
+@keyframes completion-pop {
+    from {
+        transform: scale(0.7);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ---------------- Sparkle Particles ---------------- */
+
+.sparkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: white;
+    opacity: 0.9;
+
+    animation: sparkle-float 2.5s ease-out forwards;
+}
+
+@keyframes sparkle-float {
+    from {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-140px) scale(0);
+        opacity: 0;
     }
 }

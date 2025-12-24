@@ -23,33 +23,33 @@ const loader = document.getElementById("loader");
 const clues = [
     {
         title: "Clue One",
-        text: "Where warmth and comfort greet the day...",
-        answer: "kitchen"
+        text: "I’m near the spot that isn’t glam,\nYet I’m the start of your little plan.\nWhere scraps and bottles go their way,\nPeek behind and take your prey",
+        answer: "T4RR"
     },
     {
         title: "Clue Two",
-        text: "I keep things cold but never complain...",
-        answer: "fridge"
+        text: "A place of scents and blades kept neat,\nWhere mornings start and faces meet.\nNot on display, but tucked away,\nAmong fresh rolls and steel so grey.\nOpen the door, be brave and bold,\nYour next small treasure waits to be told",
+        answer: "G3T7"
     },
     {
         title: "Clue Three",
-        text: "I rest beneath you when you sit and relax...",
-        answer: "sofa"
+        text: "I'm hiding in a place so neat! I cannot believe it's so organised!",
+        answer: "H4UL"
     },
     {
         title: "Clue Four",
-        text: "I glow at night but never burn...",
-        answer: "lamp"
+        text: "HELP ME - HELP MEH!!! If someone pushes that button down, I'm going to burn!!!",
+        answer: "5Z6T"
     },
     {
         title: "Clue Five",
-        text: "I clean without moving an inch...",
-        answer: "dishwasher"
+        text: "OK, I am nice and comfortable in here - please stop hitting me!!! I never get any rest!!!",
+        answer: "ILOV3Y0U"
     },
     {
         title: "Clue Six",
-        text: "I hide surprises behind wrapping...",
-        answer: "tree"
+        text: "Oh how lovely and girly for no pennies at all!!!! Still, I will bug Johnny and make him fall!",
+        answer: "targethaul"
     }
 ];
 
@@ -157,7 +157,7 @@ function loadClue(index) {
 
 submitClue.addEventListener("click", () => {
     const userAnswer = clueInput.value.trim().toLowerCase();
-    const correctAnswer = clues[currentClue].answer;
+    const correctAnswer = clues[currentClue].answer.toLowerCase();
 
     if (userAnswer === correctAnswer) {
         triggerCandyShower();
@@ -176,11 +176,14 @@ submitClue.addEventListener("click", () => {
             if (currentClue < clues.length) {
                 loadClue(currentClue);
             } else {
-                clueTitle.textContent = "🎄 Well done!";
-                clueText.textContent = "You’ve completed the Christmas treasure hunt.";
-                clueInput.style.display = "none";
-                submitClue.style.display = "none";
-                clueFeedback.textContent = "";
+                setTimeout(() => {
+                    document
+                        .getElementById("completionOverlay")
+                        .classList.remove("hidden");
+
+                    triggerCandyShower();
+                    triggerSparkles();
+                }, 600);
             }
         }, 3000);
     } else {
@@ -205,7 +208,11 @@ function triggerCandyShower() {
         const type = types[Math.floor(Math.random() * types.length)];
         item.classList.add(type);
 
-        item.style.left = Math.random() * 100 + "vw";
+        // item.style.left = Math.random() * 100 + "vw";
+        const containerWidth = candyContainer.offsetWidth;
+        const itemWidth = 60; // approx max width of your largest item
+        item.style.left = Math.random() * (containerWidth - itemWidth) + "px";
+
         item.style.animationDuration = (2.2 + Math.random() * 1.2) + "s";
         item.style.animationDelay = (Math.random() * 0.3) + "s";
 
@@ -220,6 +227,22 @@ function triggerCandyShower() {
 
         item.addEventListener("animationend", () => item.remove());
         setTimeout(() => item.remove(), 5000); // iOS failsafe
+    }
+}
+
+function triggerSparkles() {
+    const sparkleCount = 80;
+
+    for (let i = 0; i < sparkleCount; i++) {
+        const sparkle = document.createElement("div");
+        sparkle.classList.add("sparkle");
+
+        sparkle.style.left = Math.random() * 100 + "vw";
+        sparkle.style.top = Math.random() * 100 + "vh";
+
+        document.body.appendChild(sparkle);
+
+        sparkle.addEventListener("animationend", () => sparkle.remove());
     }
 }
 
